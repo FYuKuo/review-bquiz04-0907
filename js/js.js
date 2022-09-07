@@ -10,3 +10,9 @@ function del(id,table)
 		location.reload();
 	})
 }
+
+
+function reset()
+{
+	$('input[type=text],input[type=password]').val('');
+}

@@ -29,7 +29,7 @@ $pr = unserialize($admin['pr']);
 </table>
 <div class="ct">
     <input type="hidden" name="id" value="<?=$admin['id']?>">
-    <input type="submit" value="新增">
+    <input type="submit" value="修改">
     <input type="reset" value="重置">
 </div>
 
