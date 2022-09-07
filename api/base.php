@@ -94,13 +94,14 @@ class DB
                 }
             }
 
-            $sql = "UPDATE `$this->table`" . join(',',$tmp) . " WHERE `id` = '{$array['id']}' ";
+            $sql = "UPDATE `$this->table` SET " . join(',',$tmp) . " WHERE `id` = '{$array['id']}' ";
         }else{
             $col = join("`,`",array_keys($array));
             $val = join("','",$array);
 
             $sql = "INSERT INTO `$this->table` (`$col`) VALUES ('$val')";
         }
+        // echo $sql;
         return $this->pdo->exec($sql);
     }
 
@@ -144,4 +145,11 @@ function to($url)
 {
     header("location:$url");
 }
+
+$Admin = new DB('admin');
+$Bot = new DB('bot');
+$Goods = new DB('goods');
+$Mem = new DB('mem');
+$Ord = new DB('ord');
+$Type = new DB('type');
 ?>
