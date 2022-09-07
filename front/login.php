@@ -27,5 +27,32 @@ $_SESSION['anser'] = $num1+$num2;
     </tr>
 </table>
 <div class="ct">
-    <input type="button" value="確認">
+    <input type="button" value="確認" onclick="login()">
 </div>
+
+<script>
+    function login(){
+        let acc = $('#acc').val();
+        let pw = $('#pw').val();
+        let myAnser = $('#anser').val();
+        let anser = <?=$_SESSION['anser']?>;
+        let table = 'mem';
+
+
+        if(anser == myAnser){
+
+            $.get('./api/login.php',{acc,pw,table},(res)=>{
+                if(parseInt(res) == 1){
+                    location.href='./index.php';
+                }else{
+                    alert('帳號或密碼錯誤');
+                }
+            })
+        }else{
+            alert('對不起，您輸入的驗證碼有誤 \n 請您重新登入')
+        }
+
+
+
+    }
+</script>

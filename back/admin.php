@@ -22,7 +22,7 @@
             }else{
             ?>
             <input type="button" value="修改" onclick="location.href='?do=edit_admin&id=<?=$row['id']?>'">
-            <input type="button" value="刪除" onclick="del(<?=$row['id']?>,'<?=$_GET['do']?>')">
+            <input type="button" value="刪除" onclick="del(<?=$row['id']?>,'<?=$do?>')">
             <?php
             }
             ?>
