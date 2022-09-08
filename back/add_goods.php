@@ -1,23 +1,34 @@
 <h1 class="ct">新增商品</h2>
 
-<form action="./api/goods" method="post">
+<form action="./api/goods.php" method="post" enctype="multipart/form-data">
 <table class="w-80 aut">
     <tr>
         <td class="tt w-30 ct">所屬大分類</td>
         <td class="pp">
-        <select name="big" id="big"></select>
+        <select name="big" id="big">
+            <?php
+            $bigs = $Type->all(['parent'=>0]);
+            foreach ($bigs as $key => $big) {
+            ?>
+            <option value="<?=$big['id']?>"><?=$big['name']?></option>
+            <?php
+            }
+            ?>
+        </select>
         </td>
     </tr>
     <tr>
         <td class="tt w-30 ct">所屬中分類</td>
         <td class="pp">
-            <select name="mid" id="mid"></select>
+            <select name="mid" id="mid">
+
+            </select>
         </td>
     </tr>
     <tr>
         <td class="tt w-30 ct">商品編號</td>
         <td class="pp goods_no">
-
+            
         </td>
     </tr>
     <tr>
@@ -64,3 +75,19 @@
 </div>
 
 </form>
+
+<script>
+    $('#mid').load('./api/get_mid.php',{big:$('#big').val()})
+    
+    $('.goods_no').load('./api/get_no.php',{big:$('#big').val(),mid:$('#mid').val()});
+    
+    $('#big').on('change',function(){
+        $('#mid').load('./api/get_mid.php',{big:$('#big').val()})
+    })
+    $('#big,#mid').on('change',function(){
+        
+        $('.goods_no').load('./api/get_no.php',{big:$('#big').val(),mid:$('#mid').val()});
+        
+    })
+
+</script>
