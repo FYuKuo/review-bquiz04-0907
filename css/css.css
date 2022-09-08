@@ -22,9 +22,10 @@ body
 	display:inline-block;
 	width:20%;
 	padding:2%;
-	min-height:550px;
+	height:550px;
 	vertical-align:top;
 	border:#000 1px solid;
+	overflow: auto;
 }
 #left a
 {
@@ -44,7 +45,7 @@ body
 	display:inline-block;
 	width:71%;
 	padding:2%;
-	min-height:550px;
+	height:550px;
 	border:#000 1px solid;
 	overflow: auto;
 }
@@ -156,4 +157,12 @@ div.ww:hover > div.s
 
 .aut {
 	margin: auto;
+}
+
+.p-10 {
+	padding: 10px;
+}
+
+.m-1 {
+	margin: 1px;
 }

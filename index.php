@@ -29,16 +29,16 @@ $do = ($_GET['do'])??'main';
                 <a href="?">回首頁</a> |
                 <a href="?do=news">最新消息</a> |
                 <a href="?do=look">購物流程</a> |
-                <a href="?do=buycart">購物車</a> 
+                <a href="?do=buycart">購物車</a>
                 |
                 <?php
                 if(isset($_SESSION['mem'])){
                 ?>
-                <a href="./api/logout.php?table=mem">登出</a> 
+                <a href="./api/logout.php?table=mem">登出</a>
                 <?php
                 }else{
                 ?>
-                <a href="?do=login">會員登入</a> 
+                <a href="?do=login">會員登入</a>
                 <?php
                 }
                 ?>
@@ -46,7 +46,7 @@ $do = ($_GET['do'])??'main';
                 <?php
                 if(isset($_SESSION['admin'])){
                 ?>
-                <a href="./back.php">返回管理</a> 
+                <a href="./back.php">返回管理</a>
                 <?php
                 }else{
                 ?>
@@ -56,11 +56,40 @@ $do = ($_GET['do'])??'main';
                 ?>
             </div>
 
-            <marquee >情人節特惠活動&nbsp;&nbsp;年終特賣會開跑了</marquee>
+            <marquee>情人節特惠活動&nbsp;&nbsp;年終特賣會開跑了</marquee>
         </div>
 
         <div id="left" class="ct">
+            <a href="?type=0">全部商品(<?=$Goods->math('COUNT','id',['sh'=>1])?>)</a>
             <div style="min-height:400px;">
+                <?php
+                $bigs = $Type->all(['parent'=>0]);
+                foreach ($bigs as $key => $big) {
+                ?>
+                <div class="bigtype">
+
+                    <a href="?type=<?=$big['id']?>">
+                        <?=$big['name']?>(<?=$Goods->math('COUNT','id',['sh'=>1,'big'=>$big['id']])?>)
+                    </a>
+
+                    <div class="midtype" style="display:none">
+                        <?php
+                $mids = $Type->all(['parent'=>$big['id']]);
+                foreach ($mids as $key => $mid) {
+                ?>
+                        <a href="?type=<?=$mid['id']?>"
+                            style="background-color: lightpink;"><?=$mid['name']?>(<?=$Goods->math('COUNT','id',['sh'=>1,'mid'=>$mid['id']])?>)
+                        </a>
+
+                        <?php
+                }
+                ?>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+
             </div>
             <span>
                 <div>進站總人數</div>
@@ -80,9 +109,18 @@ $do = ($_GET['do'])??'main';
         </div>
 
         <div id="bottom" style="line-height:70px;background:url(./icon/bot.png); color:#FFF;" class="ct">
-             <?=$Bot->find(1)['text']?>
+            <?=$Bot->find(1)['text']?>
         </div>
     </div>
+
+    <script>
+    $('.bigtype').hover(function() {
+        console.log($(this).next());
+        $(this).children('.midtype').show();
+    }, function() {
+        $(this).children('.midtype').hide();
+    })
+    </script>
 
 </body>
 
