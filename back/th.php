@@ -1,12 +1,12 @@
 <h1 class="ct">商品分類</h1>
 <div class="ct">
-    新增大分類<input type="text" name="big" id="big"><input type="button" value="新增">
+    新增大分類<input type="text" name="big" id="big"><input type="button" value="新增" onclick="add_type('big')">
 </div>
 <div class="ct">
     新增中分類
-    <select name="sb" id="sb">
+    <select name="bigtype" id="bigtype">
     </select>
-    <input type="text" name="mid" id="mid"><input type="button" value="新增">
+    <input type="text" name="mid" id="mid"><input type="button" value="新增" onclick="add_type('mid')">
 </div>
 <div class="ct"></div>
 <table class="w-90 aut">
@@ -17,8 +17,8 @@
     <tr class="tt">
         <td class="w-70"><?=$big['name']?></td>
         <td class="ct">
-            <input type="button" value="修改" onclick="">
-            <input type="button" value="刪除" onclick="del(<?=$big['name']?>'type')">
+            <input type="button" value="修改" onclick="edit_type(<?=$big['id']?>,'<?=$big['name']?>')">
+            <input type="button" value="刪除" onclick="del(<?=$big['id']?>,'type')">
         </td>
     </tr>
     <?php
@@ -28,8 +28,8 @@
     <tr class="pp">
         <td class="w-70 ct"><?=$mid['name']?></td>
         <td class="ct">
-            <input type="button" value="修改" onclick="">
-            <input type="button" value="刪除" onclick="del(<?=$big['name']?>'type')">
+            <input type="button" value="修改" onclick="edit_type(<?=$mid['id']?>,'<?=$mid['name']?>')">
+            <input type="button" value="刪除" onclick="del(<?=$big['id']?>,'type')">
         </td>
     </tr>
     <?php
@@ -81,3 +81,39 @@
     }
     ?>
 </table>
+
+<script>
+    function edit_type(id,name){
+        
+        name = prompt('請輸入您要修改的名稱',name);
+
+       if(name != null){
+
+           $.post('./api/edit_type.php',{id,name},()=>{
+               location.reload();
+           })
+       }
+
+    }
+
+    $('#bigtype').load('./api/get_big.php');
+
+    function add_type(type){
+        let name = $(`#${type}`).val();
+        let parent;
+        switch (type) {
+            case 'big':
+                parent = 0;
+            break;
+
+            case 'mid':
+                parent = $('#bigtype').val();
+            break;
+        }
+
+        console.log(parent,name);
+        $.post('./api/add_type.php',{name,parent},()=>{
+            location.reload();
+        })
+    }
+</script>
