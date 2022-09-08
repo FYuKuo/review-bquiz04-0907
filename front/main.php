@@ -33,7 +33,7 @@ foreach ($goods as $key => $good) {
         </div>
         <div class="pp p-10 m-1 d-f" style="justify-content: space-between;">
             價錢：<?=$good['price']?>
-            <a href="?do=buycart&id=<?=$good['id']?>">
+            <a href="?do=buycart&id=<?=$good['id']?>&qt=1">
                 <img src="./icon/0402.jpg" alt="">
             </a>
         </div>

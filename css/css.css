@@ -166,3 +166,7 @@ div.ww:hover > div.s
 .m-1 {
 	margin: 1px;
 }
+
+.cup {
+	cursor: pointer;
+}

@@ -30,7 +30,15 @@ $good = $Goods->find($_GET['id']);
 </div>
 <div class=" w-80 aut tt ct">
     購買數量<input type="number" name="qt" id="qt" min="1" value="1">
-    <a href="?do=buycart&id=<?=$good['id']?>">
+    <a href="#" onclick="buycart()">
         <img src="./icon/0402.jpg" alt="">
     </a>
 </div>
+
+<script>
+    function buycart()
+    {
+        let qt = $('#qt').val();
+        location.href=`?do=buycart&id=<?=$good['id']?>&qt=${qt}`;
+    }
+</script>
