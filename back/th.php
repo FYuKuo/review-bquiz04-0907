@@ -72,9 +72,9 @@
             </td>
             <td class="ct">
                 <input type="button" value="修改" onclick="location.href='?do=edit_goods&id=<?=$good['id']?>'">
-                <input type="button" value="刪除" onclick="del('type')"><br>
-                <input type="button" value="上架" onclick="sh('goods')">
-                <input type="button" value="下架" onclick="sh('goods')">
+                <input type="button" value="刪除" onclick="del(<?=$good['id']?>,'goods')"><br>
+                <input type="button" value="上架" onclick="sh(<?=$good['id']?>,1,'goods')">
+                <input type="button" value="下架" onclick="sh(<?=$good['id']?>,0,'goods')">
             </td>
         </tr>
     <?php
@@ -113,6 +113,12 @@
 
         console.log(parent,name);
         $.post('./api/add_type.php',{name,parent},()=>{
+            location.reload();
+        })
+    }
+
+    function sh(id,sh,table){
+        $.post('./api/sh.php',{id,sh,table},()=>{
             location.reload();
         })
     }

@@ -2,15 +2,15 @@
 $gettype = ($_GET['type'])??0;
 $title = '';
 if($gettype == 0){
-    $goods = $Goods->all();
+    $goods = $Goods->all(['sh'=>1]);
     $title = '全部商品';
 }else{
     $type = $Type->find($gettype);
     if($type['parent'] == 0){
-        $goods = $Goods->all(['big'=>$gettype]);
+        $goods = $Goods->all(['sh'=>1,'big'=>$gettype]);
         $title = $type['name'];
     }else{
-        $goods = $Goods->all(['mid'=>$gettype]);
+        $goods = $Goods->all(['sh'=>1,'mid'=>$gettype]);
         $title = $Type->find($type['parent'])['name'].">".$type['name'];
     }
 }
